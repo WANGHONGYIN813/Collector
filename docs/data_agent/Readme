@@ -1,0 +1,24 @@
+
+
+Send Sangfor Apt xlsx :
+
+python read_and_send_xlsx.py -n sangfor_data/sangfor_apt_namelist -f sangfor_data/sangfor_apt_sample.xlsx -s 13
+
+python  read_and_send_xlsx.py -n sangfor_data/sangfor_ips_namelist -f sangfor_data/sangfor-fw-report-IPS-20190318102300.xlsx -s 14
+
+
+
+
+Output Data from mysql to CSV :
+
+mysql -h 10.0.24.128  -uroot -phd  -e "use shaxiang;select * from event"  >  event_sql.csv
+
+python read_and_send_xlsx.py -f cnzxsoft_data/ event_sql.csv  -a 0.0.0.0 -p 9030 -t 1
+
+
+
+mysql -h 10.0.24.128  -uroot -phd  -e "use shaxiang;select * from event_sandbox"  > event_sandbox_sql.csv
+
+python read_and_send_xlsx.py -f cnzxsoft_data/event_sandbox_sql.csv  -a 0.0.0.0 -p 9031 -t 1 
+
+

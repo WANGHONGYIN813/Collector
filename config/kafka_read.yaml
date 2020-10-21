@@ -1,0 +1,19 @@
+
+input :
+    kafka :
+        addr : ["10.0.24.42:9072"]
+        topic : topic_dpi_xdr_com_new
+        partition : 0-1
+
+filter :
+    json :
+        source : "Message"
+
+ 
+output:
+    #console :
+        #quietmode: true
+
+
+
+

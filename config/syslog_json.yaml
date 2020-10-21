@@ -1,0 +1,9 @@
+input :
+    syslog:
+        addr : "0.0.0.0:514"
+
+filter :
+    json :
+        source : "Message"
+ 
+output:

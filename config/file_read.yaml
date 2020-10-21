@@ -1,0 +1,19 @@
+
+input :
+    file:
+        paths: ["/Users/handawei/g/c/.log"]
+        type : "test"
+        read_mode : "end"
+ 
+filter :
+
+
+output:  
+    #elasticsearch : 
+     #   index : tt
+      #  host : [10.0.24.125:9201]
+     
+
+
+
+

@@ -1,0 +1,54 @@
+
+input :
+    xdrfile :
+        read_interval : 300
+        base_path : "xdrfilepath"
+        dir_arr : [HTTPS]
+
+ 
+filter :
+    mutate :
+        direct_operation : true
+        split : Message,|
+
+        split_fields :
+            0 : ProcedureStartTime
+            1 : ProtocolType
+            2 : AppType
+            3 : AppSub-type
+            4 : AppContent
+            5 : USER_IPv4
+            6 : UserPort
+            7 : AppServerIP_IPv4
+            8 : AppServerPort
+            9 : ULData
+            10 : DLData
+
+        convert : 
+            - [ULData,              int]
+            - [DLData,              int]
+
+
+        add_fields_cal:
+            AppID :  ["%03d%05d", AppType, AppSub-type]
+            AppUID : ["%03d%05d%03d", AppType, AppSub-type, AppContent]
+
+
+        #add_field :
+        #'@timestamp' : ProcedureStartTime
+
+        transform_fields:
+            AppContent : ['ff', 0] 
+
+
+
+
+output:
+    elasticsearch :
+        index : gbeat_dpi_xdr
+        host : [es1,es2,es3,es4,es5]
+        mapping_load : "./dpi_xdr_db.json"
+        index_by_day : true
+        bulk : 20000
+ 
+

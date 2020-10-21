@@ -1,0 +1,224 @@
+
+
+MP4 制作ts , m3u8:
+
+
+
+1, 
+
+先用ffmpeg把abc.mp4文件转换为abc.ts文件：
+
+ffmpeg -y -i douyin.mp4 -vcodec copy -acodec copy -vbsf h264_mp4toannexb douyin.ts
+
+2, 
+
+再用ffmpeg把.ts文件切片并生成 playlist.m3u8文件，5秒一个切片：
+
+ffmpeg -i douyin.ts -c copy -map 0 -f segment -segment_list playlist.m3u8 -segment_time 5 douyin%03d.ts
+
+
+运行后生成的m3u8:
+
+#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-MEDIA-SEQUENCE:0
+#EXT-X-ALLOW-CACHE:YES
+#EXT-X-TARGETDURATION:9
+#EXTINF:8.400000,
+douyin000.ts
+#EXTINF:8.333333,
+douyin001.ts
+#EXTINF:8.333333,
+douyin002.ts
+#EXTINF:8.333333,
+douyin003.ts
+#EXTINF:8.166667,
+douyin004.ts
+#EXT-X-ENDLIST
+
+
+
+
+
+
+
+3, 
+
+
+将ts 合成为mp4:
+
+ 利用ffmegp 将多个ts 合并成 mp4 合并：
+
+ffmpeg -i "concat:1.ts|2.ts" -acodec copy -vcodec copy -absf aac_adtstoasc output.mp4
+
+
+-i 中concat 内容为多个ts， 按顺利合成
+
+也可以将文件写在文件列表， ffmpeg 加载列表：
+先创建一个文本文件filelist.txt：
+
+file 'input1.mkv'
+file 'input2.mkv'
+file 'input3.mkv'
+
+
+然后：
+
+ffmpeg -f concat -i filelist.txt -c copy output.mkv
+
+
+本例子下：
+
+ls *.ts |xargs -n 1 echo file > list 
+
+
+list :
+
+file douyin000.ts
+file douyin001.ts
+file douyin002.ts
+file douyin003.ts
+file douyin004.ts
+
+
+ffmpeg -f concat -i list -c copy output.mp4
+
+
+********************************************
+
+
+
+查看视频信息：
+
+ffmpeg -i douyin000.ts 
+
+
+抽取I帧：
+
+
+ffmpeg -nostdin -i $file -vf select='eq(pict_type\,I)' -vsync 2 -f image2 frame_%08d.jpeg
+
+
+抽取I帧，指定分辨率:
+                   
+ffmpeg -nostdin -i $file -vf select='eq(pict_type\,I)' -s 160x90 -vsync 2 -f image2 frame_%08d.jpeg
+
+
+改变为原视频的90%大小：
+
+ffmpeg -i douyin000.ts -vf "select='eq(pict_type\,I)',scale=iw*0.5:ih*0.5" -f image2 s/frame_%05d.jpeg 
+
+ffmpeg -nostdin -loglevel quiet -y -i douyin000.ts -vf "select='eq(pict_type\,I)',scale=iw*0.5:ih*0.5" -vsync 2 -f image2 s/frame_%05d.jpeg 
+
+抽取全部帧
+
+ffmpeg -nostdin -loglevel quiet -y -i $file -f image2 $tardir/frame_%08d.jpeg
+
+
+
+
+下载m3u8 , 保存为本地文件：
+
+ffmpeg -i http://10.0.24.128:8011/m3u8-ok/playlist.m3u8 output.mp4
+
+
+
+下载m3u8 , 提取关键帧：
+
+ffmpeg -i http://10.0.24.128:8011/m3u8-ok/playlist.m3u8 -vf select='eq(pict_type\,I)' -vsync 2 -f image2 frame_%08d.jpeg
+
+
+
+
+
+
+
+
+
+*****************
+
+下载、合成:
+
+go run tool.go -D http://10.0.24.128:8011/m3u8-ok/playlist.m3u8  -m
+
+
+下载、合成、删除ts文件:
+
+go run tool.go -D http://10.0.24.128:8011/m3u8-ok/playlist.m3u8  -m -c
+
+
+下载、合成、删除ts文件 , 启动20个线程： 
+
+go run tool.go  -m -c -D https://56.com-t-56.com/20190527/23076_565f60df/index.m3u8 -p 20
+
+
+下载、合成、删除ts文件 , 启动20个线程, 保存到指定路径： 
+
+go run tool.go  -m -c -D https://56.com-t-56.com/20190527/23076_565f60df/index.m3u8 -p 20 -save_dir test
+
+
+
+指定目录，合成、删除ts文件 :
+
+go run tool.go -M save_dir -c 
+
+
+提取关键帧，缩放50%：
+
+go run tool.go -E save_dir -extract_scale 50 -extract_if_mode
+
+
+指定目录，提取关键帧，指定尺寸 ：
+
+go run tool.go -E save_dir -extract_size "160*320" -extract_if_mode
+
+
+指定目录，提取关键帧, 缩放80%, 保存到指定路径：
+
+go run tool.go -E save_dir -extract_if_mode -extract_scale 80 -save_dir test
+
+指定目录，提取全部帧：
+
+go run tool.go -E save_dir 
+
+指定目录，提取全部帧, 缩放80% ：
+
+go run tool.go -E save_dir -extract_scale 80
+
+
+下载、提取I帧，删除ts文件 :
+
+go run tool.go -D http://10.0.24.128:8011/m3u8-ok/playlist.m3u8  -e -extract_if_mode  -c
+
+
+下载、提取I帧，删除ts文件, 缩放80%:
+
+go run tool.go -D http://10.0.24.128:8011/m3u8-ok/playlist.m3u8  -c -e -extract_if_mode -extract_scale 80
+
+
+
+下载、提取I帧，删除ts文件, 缩放80%，保存到指定目录:
+
+go run tool.go -D http://10.0.24.128:8011/m3u8-ok/playlist.m3u8  -c -e -extract_if_mode -extract_scale 80 -save_dir output
+
+
+下载、提取全部帧，删除ts文件, 缩放80%:
+
+go run tool.go -D http://10.0.24.128:8011/m3u8-ok/playlist.m3u8  -c -e -extract_scale 80
+
+
+下载、提取I帧，合成、删除ts文件, 缩放80%:
+
+go run tool.go -D http://10.0.24.128:8011/m3u8-ok/playlist.m3u8  -m -c -e -extract_if_mode -extract_scale 80
+
+
+下载媒体文件、提取I帧，删除媒体文件 :
+
+go run tool.go -D http://10.0.24.128:8011/m3u8/douyin000.ts  -e -extract_if_mode -c
+
+下载媒体文件、提取I帧，删除媒体文件, 指定截图大小:
+
+go run tool.go -D http://10.0.24.128:8011/m3u8/douyin000.ts  -e -extract_if_mode -c -extract_size "160*320"
+
+
+

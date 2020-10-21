@@ -1,0 +1,24 @@
+
+
+dump porn tag doc from hbase :
+
+sh dump-porn.sh
+
+
+
+
+view them with this command : 
+
+python get-hbase-doc.py -f list 
+
+
+
+save doc : 
+
+python get-hbase-doc.py -f list -s
+
+
+
+save doc and do not show them : 
+
+python get-hbase-doc.py -f list -s -q

@@ -1,0 +1,22 @@
+input :
+    kafka :
+        addr : ["10.0.24.42:9092"]
+        topic : topic_dpi_mdr_im_wechat
+        partition : 0-5
+
+filter :
+    json :
+        source : "Message"
+ 
+        add_field :
+            '@timestamp' : found_start_time
+
+
+output:
+    elasticsearch :
+        index: gbeat_dpi_mdr_im_wechat
+        index_by_day : true
+        host : [10.0.24.60:9201,10.0.24.60:9202,10.0.24.60:9203,10.0.24.60:9204,10.0.24.60:9205]
+        bulk : 10000
+        mapping_load : "/opt/dynamic_templates_string_to_keyword.json"
+

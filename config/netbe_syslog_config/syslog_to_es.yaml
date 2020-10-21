@@ -1,0 +1,30 @@
+input : 
+    dbsyslog :
+        addr : "0.0.0.0:8011"
+        type : db_syslog
+        remove_fields : 
+          - dt
+          - level
+          - id
+          - attach
+          - sender
+          - receiver
+          - imei
+          - imsi
+          - longitude
+          - latitude
+          - machinetype
+          - machinename
+        mode : performance
+
+filter :
+
+output :
+    elasticsearch :
+        index : db_nrtbe_syslog
+        host : [10.0.24.60:9201,10.0.24.60:9202,10.0.24.60:9203]
+        mapping_load : "/home/Wanghy/data_collecter/syslog_mapping.json"
+        index_by_day : true
+        bulk : 20000
+    
+        

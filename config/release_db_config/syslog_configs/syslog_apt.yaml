@@ -1,0 +1,47 @@
+input :
+    udp :
+        addr : 0.0.0.0:8044
+
+
+filter : 
+    mutate :
+        split : Message,~
+        
+        split_fields :
+            0 : header
+            1 : apptype
+            2 : placeholderfield
+            3 : happentime
+            4 : source_ip_port
+            5 : des_ip_port
+            6 : attack_type
+            7 : rule_name
+            8 : message
+            9 : attack_level
+            10 : access_id
+            11 : file_name
+            12 : patload
+            13 : file_MD5
+            14 : host
+            15 : reply_code
+            16 : attack_stage
+            17 : attack_direction
+            18 : source_mac
+            19 : des_mac
+            20 : reply_len
+            21 : request_header
+            22 : post_body
+            23 : reply_content
+            24 : attack_filetype
+            25 : attack_status
+        
+        geoip : 
+            - [Sourceip,Sourceip_Geo]
+            - [Desip,Desip_Geo]
+
+output:
+    elasticsearch :
+        index : apt_message
+        host : [10.0.24.44:9201,10.0.24.44:9202,10.0.24.44:9203]
+        bulk : 10000
+        mapping_load : "/opt/dynamic_templates_string_to_keyword.json" 

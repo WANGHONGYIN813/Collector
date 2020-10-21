@@ -1,0 +1,21 @@
+
+tlv :
+    msg_type : 10
+    proto_type : 108
+    tlv_config :
+        - ["XDR_ID",1,s]
+        - ["Procedure_Start_Time",2,s]
+        - ["startTime",3,s]
+        - ["updateTime",4,s]
+        - ["endTime",5,s]
+        - ["Account",6,s]
+        - ["userIP",7,s]
+        - ["BASIP",8,s]
+        - ["Physical_port",9,s]
+        - ["Logical_port",10,s]
+        - ["InBytes",11]
+        - ["OutBytes",12]
+        - ["NAT_IP",13,s]
+        - ["NAT_port_start",14]
+        - ["NAT_port_end",15]
+        - ["NAS_Identifier",16,s]

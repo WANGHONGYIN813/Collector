@@ -1,0 +1,13 @@
+input : 
+    dbsyslog :
+        addr : 0.0.0.0:8012
+        mode : performance
+        udplimit : 50
+       
+filter:
+
+
+output : 
+    file : 
+        path : /tmp/SyslogData/
+        linecount : 19999

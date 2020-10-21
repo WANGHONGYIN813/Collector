@@ -1,0 +1,19 @@
+
+input :
+    udp:
+        addr : "0.0.0.0:8000"
+
+filter :
+    mutatemap :
+        split : Message, " "
+        split_map : split_items, "="
+        remove_fields : [Message]
+
+        geoip : 
+            - [SrcIP, SrcIP_Geo]
+            - [DstIP, DstIP_Geo]
+
+ 
+output:
+
+

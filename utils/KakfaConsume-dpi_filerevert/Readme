@@ -1,0 +1,97 @@
+
+文件还原数据处理软件版本使用说明：
+
+
+[1] 软件版本：
+
+	V1.0_20190530
+
+[2] 运行环境：
+
+	<1> 操作系统：  Centos 7.5 
+
+	<2> DNS 解析：
+
+		10.0.24.42 kafka1.sa.sugon.com
+		
+	当前环境下kakfa组件会后告知consumer集群地址 kafka1.sa.sugon.com  ，因此需要手动添加对应的 IP地址
+
+[3] 软件使用方法：
+
+	<1> 解压软件：
+
+	tar zxvf KakfaConsume-dpi_filerevert_Linux_V1.0_20190530.tar
+
+	<2> 运行软件：
+
+	进入解压后的KakfaConsume-dpi_filerevert_Linux_V1.0_20190530目录：
+
+
+	1) 数据准备：
+
+		sh  Prepare.sh
+
+	# NOTE # 
+
+		需要输入root密码 
+
+
+	2) 启动软件：
+
+		./KakfaConsume-dpi_filerevert_Linux_V1.0_20190530.bin -p 5
+
+	
+	# NOTE # 
+
+
+		(1) KakfaConsume-dpi_filerevert_Linux_V1.0_20190530.bin 会自动加载当前目的下的config.yaml
+
+		(2) ./KakfaConsume-dpi_filerevert_Linux_V1.0_20190530.bin  -h 查看支持可选参数：
+
+		-f 指定配置文件
+
+		-p 指定并发任务数量
+		
+		其他配置参数通过config.yaml 配置文件进行配置
+
+
+[1] 配置文件config.yaml 内容及说明：
+
+#kakfa topic地址
+kafka:
+    addr : ["10.0.24.42:9092"]
+    topic : dpi_filerevert
+    partition : 0-5 
+ 
+
+#临时缓存目录
+buffer_dir : /dev/shm/buffer
+
+
+#hbase地址和信息
+hbase :
+
+    host : http://10.0.24.42:9900
+    table : dpi_filerevert
+    column : context
+    batch : true
+ 
+
+#图片监测地址，批量送检数量
+pic_check :
+    check_addr : http://10.0.24.42:8090/pic_check_bulk
+    file_type : [jpeg, png, jpg]
+    bulk_num : 128 
+
+
+#输出es地址 
+es :
+    host : http://10.0.24.60:9201
+    index : gbeat-dpi-filerevert
+    index_by_day : true
+    mapping_load : "/opt/dynamic_templates_string_to_keyword.json"
+
+
+
+如果kakfa，hbase， 图片监测系统，es等组件地址发生变化，则修改对应变量即可。
+

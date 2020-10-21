@@ -1,0 +1,65 @@
+
+input :  
+    snmpwalk :
+        host : [10.0.24.42, 10.0.24.58]
+        type : snmpwalk_data
+        interval : 30
+        oidnamelist :
+            - sysName
+            - sysDescr
+            - hrSystemUptime
+            - sysContact
+            - sysLocation
+
+            - ipAdEntAddr
+            - ipAdEntIfIndex
+            - ipAdEntNetMask
+
+            - ifNumber
+            - ifDescr
+            - ifPhysAddress
+            - ifType
+            - ifMtu
+            - ifSpeed
+            - ifOperStatus
+            - ifInOctets
+            - ifOutOctets
+            - ifInUcastPkts
+            - ifOutUcastPkts
+
+            - ssCpuUser
+            - ssCpuSystem
+            - ssCpuIdle
+            - ssCpuRawUser
+            - ssCpuRawSystem
+            - ssCpuRawIdle
+            - hrProcessorLoad
+
+            - hrMemorySize
+            - hrStorageIndex
+            - hrStorageType
+            - hrStorageDescr
+            - hrStorageAllocationUnits
+            - hrStorageSize
+            - hrStorageUsed
+            
+            - memTotalSwap
+            - memAvailSwap
+            - memTotalReal
+            - memAvailReal
+            - memTotalFree
+            - memShared
+            - memBuffer
+            - memCached
+            
+
+filter :
+    map :
+        source : "Message"
+
+
+output:
+    elasticsearch : 
+        index : aa
+        host : ["10.0.24.128:9200"]
+        bulk : 10000

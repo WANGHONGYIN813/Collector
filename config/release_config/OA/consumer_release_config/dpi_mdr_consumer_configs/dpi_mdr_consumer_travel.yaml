@@ -1,0 +1,26 @@
+
+input :
+    kafka :
+        addr : ["10.0.24.42:9092"]
+        topic : topic_mdr_travel
+        partition : 0-5
+
+filter :
+    json :
+        source : "Message"
+        geoip : 
+            - [src_ipv4, SrcIP_Geo]
+            - [dst_ipv4, DstIP_Geo]
+
+ 
+output:
+    elasticsearch :
+        index : gbeat_dpi_mdr_travel
+        index_by_day : true
+        host : [10.0.24.60:9201,10.0.24.60:9202,10.0.24.60:9203,10.0.24.60:9204,10.0.24.60:9205]
+        bulk : 10000
+        mapping_load : "/opt/dpi_mdr_consumer_travel.json"
+
+
+
+

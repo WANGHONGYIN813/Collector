@@ -1,0 +1,23 @@
+
+tlv :
+    msg_type : 10
+    proto_type : 113
+    tlv_config :
+        - ["XDR_ID",1,s]
+        - ["Procedure_Start_Time",2,s]
+        - ["First_HTTPS_Response_Time",6]
+        - ["First_Application_data_time",7]
+        - ["Last_Content_Packet_Time",8]
+        - ["Last_ACK_Time",9]
+        - ["SNI_Length",10]
+        - ["SNI",11,s]
+        - ["CN_Length",12]
+        - ["CN",13,s]
+        - [,"HTTPS_CERTIFI_HOST_NAME",14,s]
+        - [,"HTTPS_ENCODE_TYPE",15,s]
+        - [,"HTTPS_CERTIFI_USER",16,s]
+        - [,"HTTPS_CERTIFI_AWARD_SERVER",17,s]
+        - [,"HTTPS_CERTIFI_AWARD_ORG",18,s]
+        - [,"HTTPS_CERTIFI_START_TIME",19,s]
+        - [,"HTTPS_CERTIFI_END_TIME",20,s]
+        - [,"HTTPS_STANDBY_HOST",21,s]

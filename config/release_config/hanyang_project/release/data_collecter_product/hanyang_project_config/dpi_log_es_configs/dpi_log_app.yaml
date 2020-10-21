@@ -1,0 +1,17 @@
+input :
+    tcp: 
+        addr : "0.0.0.0:9031"
+
+
+filter :
+    json :
+        source : "Message"
+
+output:
+    elasticsearch :
+        index : gbeat_dpi_log_app
+        host : [10.0.24.125:9201]
+        bulk : 10000
+        mapping_load : "/opt/dynamic_templates_string_to_keyword.json"
+
+

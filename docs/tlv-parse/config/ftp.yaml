@@ -1,0 +1,22 @@
+
+tlv :
+    msg_type : 10
+    proto_type : 104
+    tlv_config :
+        - ["XDR_ID",1,s]
+        - ["Procedure_Start_Time",2,s]
+        - ["FTPStatus",6]
+        - ["User_Name",7]
+        - ["File_Path",8]
+        - ["Trans_Mode",9]
+        - ["Trans_Type",10]
+        - ["File_Name",11]
+        - ["Client_Port",12]
+        - ["Server_Port",13]
+        - ["File_Size",14]
+        - ["Response_Time",15]
+        - ["Trans_Time",16]
+        - ["Request_Command",17]
+        - ["Request_Param",18]
+        - ["Response_Code",19]
+        - ["Response_Param",20]

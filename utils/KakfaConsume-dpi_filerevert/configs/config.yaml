@@ -1,0 +1,29 @@
+
+kafka:
+    addr : ["0.0.0.0:9092"]
+    topic : test
+
+
+buffer_dir : .buffer
+
+stroage_dir : stroage
+
+httpfs:
+    host : http://10.0.24.42:14000
+    home : /user/hadoop/
+    dir  : dpi_filerevert
+
+
+hbase :
+    host : http://10.0.24.128:4444
+    table : test2
+    column : context
+
+pic_check : 
+    enable : true
+    check_addr : http://localhost:8090/pic_check
+
+
+es :
+    host : 10.0.24.42:9200
+    index : gbeat-dpi-filerevert

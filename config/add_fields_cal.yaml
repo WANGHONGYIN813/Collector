@@ -1,0 +1,24 @@
+
+input :
+    tcp :
+        addr : 0.0.0.0:9010
+ 
+filter :
+    mutate :
+        split : Message,|
+
+        split_fields :
+            0 : AppType
+            1 : AppSub-type
+            2 : AppContent
+            3 : sss
+
+        add_fields_cal:
+            AppID :  ["%03d%05d", AppType, AppSub-type]
+            AppUID : ["%03d%05d%03d", AppType, AppSub-type, AppContent]
+
+
+output:  
+
+
+

@@ -1,0 +1,21 @@
+input :
+    syslog:
+        addr : "0.0.0.0:9042"
+
+
+filter :
+    mutatemap :
+        split : Message, " "
+        split_map : split_items, "="
+        remove_fields : [Message]
+
+        geoip : 
+            - [SrcIP, SrcIP_Geo]
+            - [DstIP, DstIP_Geo]
+ 
+ 
+output:
+    kafka:
+        host: ["10.0.24.42:9092"]
+        topic: topic_syslog_av
+        max_message_bytes : 100000000

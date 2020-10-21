@@ -1,0 +1,17 @@
+
+tlv :
+    msg_type : 10
+    proto_type : 107
+    tlv_config :
+        - ["XDR_ID",1,s]
+        - ["Procedure_Start_Time",2,s]
+        - ["URL",3,s]
+        - ["RTSP-User-Agent",4,s]
+        - ["RTP-Server-IP",5,s]
+        - ["Client-Starting-Port",6]
+        - ["Client-Ending-Port",7]
+        - ["Server-Starting-Port",8]
+        - ["Server-Ending-Port",9]
+        - ["Video-Flow-Number",10]
+        - ["Audio-Flow-Number",11]
+        - ["Response-Delay",12]

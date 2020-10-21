@@ -1,0 +1,24 @@
+
+input :
+    kafka :
+        addr : ["10.0.24.42:9092"]
+        topic : topic_test
+        partition : 0-5
+
+filter :
+    json :
+        source : "Message"
+        geoip : 
+            - [SrcIP, SrcIP_Geo]
+            - [DstIP, DstIP_Geo]
+
+ 
+output:
+#    elasticsearch :
+ #       index : gbeat_sunyainfo_
+  #      host : ["10.0.24.128:9200"]
+   #     bulk : 10000
+
+
+
+

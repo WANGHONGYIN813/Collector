@@ -1,0 +1,353 @@
+
+
+
+
+
+
+
+采集引擎版本使用说明：
+
+
+[1] 软件版本：
+
+	V1.0_20190530
+
+[2] 运行环境：
+
+	<1> 操作系统：  Centos 7.5 
+
+	<2> DNS 解析：
+
+		10.0.24.42 kafka1.sa.sugon.com
+		
+	当前环境下kakfa组件会后告知consumer集群地址 kafka1.sa.sugon.com  ，因此需要手动添加对应的 IP地址
+
+
+	<3>, Kakfa Topic : 
+
+		dpi_log_protocol
+		dpi_log_port
+		dpi_log_flow
+		dpi_log_app
+		topic_mdr_payment
+		topic_mdr_takeaway
+		topic_mdr_travel
+		topic_mdr_email
+		topic_dpi_xdr_com
+		topic_dpi_xdr_ftp
+		topic_dpi_xdr_rtsp
+		topic_dpi_xdr_http
+		topic_dpi_xdr_radius
+		topic_dpi_xdr_https
+		topic_dpi_xdr_dns
+		topic_dpi_xdr_sip
+		topic_dpi_xdr_email
+		topic_syslog_av
+		topic_syslog_apt
+		topic_syslog_ips
+
+		每个topic 参数： --replication-factor 2 --partitions 6
+
+		每个topic 的 message.max.bytes=100000000
+
+[3] 软件使用方法：
+
+	<1> 解压软件：
+
+	tar zxvf Data_Collecter_Linux_V1.0_20190530.tar
+
+	<2> 运行软件：
+
+	进入解压后的 Data_Collecter_Linux_V1.0_20190530 目录：
+
+
+	1) 数据准备：
+
+		sh Data_Collecter_Linux_V1.0_20190530_Install.sh 
+
+	# NOTE # 
+
+		需要输入root密码 
+
+
+	2) 启动软件：
+
+		./Data_Collecter_Linux_V1.0_20190530.bin -f /opt/release_config_produce
+
+	
+	# NOTE # 
+
+
+		(1) Data_Collecter_Linux_V1.0_20190530.bin 监听端口8001， 可通过-w 参数修改
+
+		(2) /Data_Collecter_Linux_V1.0_20190530.bin -h 查看支持可选参数：
+
+  		-d  系统配置文件目录， 默认/opt/sysconfig_dir
+
+		-f 指定配置文件路径，可以是单个文件，也可以是一个路径 ， 默认值  config/config.yaml
+
+		-l log配置文件路径
+
+		-p 并发任务数量，default 100
+
+		-s sysconfig配置文件路径
+
+		-w  Restul Server 端口，默认8001
+		
+		其他任务描述参数通过  yaml 配置文件进行配置， 以 release_config_produce/dpi_log_produce_configs/dpi_log_app.yaml  为例子：
+
+
+[1] 配置文件内容及说明：
+
+#输入对象
+#tcp 端口
+#performance_mode 性能模式是否开启
+input :
+    tcp: 
+        addr : "0.0.0.0:9031"
+        performance_mode : true
+                                                                                                                                                        
+#过滤条件，本处为空
+filter :
+ 
+#输出对象
+#kakfa 地址信息
+output:
+    kafka:
+        host: [10.0.24.42:9092]
+        topic: dpi_log_app
+        max_message_bytes : 100000000
+
+如果kakfa等组件地址发生变化，则修改对应变量即可
+
+
+
+
+
+
+
+
+******************
+
+实时数据处理版本使用说明：
+
+
+[0] 概要
+
+	<1> 实时数据处理版本包含两个主要程序，OnlineAnalysis_GenData_Linux_V1.0_20190530.bin 和 OnlineAnalysis_Dpi_Filerevert_Linux_V1.0_20190530.bin，
+
+	OnlineAnalysis_GenData_Linux_V1.0_20190530.bin 处理通用数据，OnlineAnalysis_Dpi_Filerevert_Linux_V1.0_20190530.bin 处理DPI文件还原数据。
+
+	<2> OnlineAnalysis_GenData_Linux_V1.0_20190530.bin 同采集引擎Data_Collecter_Linux_V1.0_20190530.bin 采用同一软件框架，使用方式一致，仅使用配置文件不同
+
+[1] 软件版本：
+
+	V1.0_20190530
+
+[2] 运行环境：
+
+	<1> 操作系统：  Centos 7.5 
+
+	<2> DNS 解析：
+
+		10.0.24.42 kafka1.sa.sugon.com
+		
+	当前环境下kakfa组件会后告知consumer集群地址 kafka1.sa.sugon.com  ，因此需要手动添加对应的 IP地址
+
+
+	<3>, Kakfa Topic : 
+
+		dpi_log_protocol
+		dpi_log_port
+		dpi_log_flow
+		dpi_log_app
+		topic_mdr_payment
+		topic_mdr_takeaway
+		topic_mdr_travel
+		topic_mdr_email
+		topic_dpi_xdr_com
+		topic_dpi_xdr_ftp
+		topic_dpi_xdr_rtsp
+		topic_dpi_xdr_http
+		topic_dpi_xdr_radius
+		topic_dpi_xdr_https
+		topic_dpi_xdr_dns
+		topic_dpi_xdr_sip
+		topic_dpi_xdr_email
+		topic_syslog_av
+		topic_syslog_apt
+		topic_syslog_ips
+
+		每个topic 参数： --replication-factor 2 --partitions 6
+
+		每个topic 的 message.max.bytes=100000000
+
+
+	<4>, hbase Table : 
+
+		1. 表结构：
+
+		{NAME => 'context', BLOOMFILTER => 'ROW', VERSIONS => '1', IN_MEMORY => 'false', KEEP_DELETED_CELLS => 'FALSE', DATA_BLOCK_ENCODING => 'NONE', TTL => 'F
+OREVER', COMPRESSION => 'NONE', MIN_VERSIONS => '0', BLOCKCACHE => 'true', BLOCKSIZE => '65536', REPLICATION_SCOPE => '0'} 
+
+		创建方法： create 'dpi_filerevert', 'context'
+
+		2. Hbase Restful Server 端口：9900
+
+
+	<4>, 图片监测系统 : 
+
+		1.  需要Image_Check_Linux_V1.0_20190529.tar 安装后的系统
+
+
+
+[3] 软件使用方法：
+
+	<1> 解压软件：
+
+	tar zxvf OnlineAnalysis_Linux_V1.0_20190530.tar
+
+	# NOTE # 
+
+		解压后会出现两个子目录 OnlineAnalysis_GenData_Linux_V1.0_20190530 和OnlineAnalysis_Dpi_Filerevert_Linux_V1.0_2019053, 其内容分别为[1]概要部分提到的程序
+
+	<2> 运行软件：
+
+	进入解压后的 OnlineAnalysis_Linux_V1.0_20190530 目录：
+
+	1) 数据准备：
+
+		sh Prepare.sh 
+
+	# NOTE # 
+
+		(1)需要输入root密码 
+
+		(2)Prepare.sh 会将必要的数据(如配置文件等)移动到/opt/目录下
+
+		(3) 执行完后会出现 bin 目录，包含了两个可执行程序OnlineAnalysis_GenData_Linux_V1.0_20190530.bin 和 OnlineAnalysis_Dpi_Filerevert_Linux_V1.0_20190530.bin
+
+
+	2) 启动软件：
+
+		进入bin 目录后执行：
+
+
+		(1) 启动通用数据处理软件：
+	
+			./OnlineAnalysis_GenData_Linux_V1.0_20190530.bin -f /opt/release_config_produce
+
+
+		# NOTE # 
+
+
+			1, OnlineAnalysis_GenData_Linux_V1.0_20190530.bin 默认监听端口8001， 可通过-w 参数修改
+
+			2, OnlineAnalysis_GenData_Linux_V1.0_20190530.bin -h 查看支持可选参数：
+
+  			-d  系统配置文件目录， 默认/opt/sysconfig_dir
+
+			-f 指定配置文件路径，可以是单个文件，也可以是一个路径 ， 默认值  config/config.yaml
+
+			-l log配置文件路径
+
+			-p 并发任务数量，default 100
+
+			-s sysconfig配置文件路径
+
+			-w  Restul Server 端口，默认8001, 如果软件启动后提示：listen tcp 0.0.0.0:8001: bind: address already in use，那么需要使用其他端口，比如-w 8002
+		
+
+		(2) 启动文件还原数据处理软件：
+
+			./OnlineAnalysis_Dpi_Filerevert_Linux_V1.0_20190530.bin -p 5 -f /opt/OnlineAnalysis_Dpi_Filerevert_Linux_V1.0_20190530_Config.yaml
+
+
+		# NOTE # 
+
+			-f 指定配置文件
+
+			-p 指定并发任务数量
+		
+			其他配置参数通过 .yaml 配置文件进行配置
+
+
+[3] 配置文件说明：
+
+	<1> 通用数据处理程序 OnlineAnalysis_GenData_Linux_V1.0_20190530.bin 配置文件说明：
+
+		以release_config/dpi_log_consumer_configs/kakfa_dpi_app.yaml  内容为例：
+
+
+#输入对象，通用数据处理程序 均从kakfa topic中输入数据， topic  为topic 名称 ，partition 为分区， 0-5 表示 0，1，2，3，5 一共5个分区
+#如果kakfa 地址有变化， 则修改该addr 
+input :
+    kafka :
+        addr : ["10.0.24.42:9092"]
+        topic : dpi_log_app
+        partition : 0-5
+
+
+#格式化方法，该任务的信息为json 格式数据，故使用json组件进行处理
+filter :
+    json :
+        source : "Message"
+ 
+
+#输出对象，通用数据处理程序均为es，index 为名称，host 为地址，可以为数组，bulk为批量提交数量，mapping_load 为为该index加载指定 mapping
+output:
+    elasticsearch :
+        index : gbeat_dpi_log_app
+        host : [10.0.24.42]
+        bulk : 10000
+        mapping_load : "/opt/dynamic_templates_string_to_keyword.json"
+
+
+
+	<2> DPI文件还原数据处理程序 OnlineAnalysis_Dpi_Filerevert_Linux_V1.0_20190530.bin 配置文件 OnlineAnalysis_Dpi_Filerevert_Linux_V1.0_20190530_Config.yaml 说明：
+
+
+
+#kakfa topic地址
+kafka:
+    addr : ["10.0.24.42:9092"]
+    topic : dpi_filerevert
+    partition : 0-5 
+ 
+
+#临时缓存目录
+buffer_dir : /dev/shm/buffer
+
+
+#hbase地址和信息
+hbase :                                                                                                                                                 
+    host : http://10.0.24.42:9900
+    table : dpi_filerevert
+    column : context
+    batch : true
+ 
+
+#图片监测地址，批量送检数量
+pic_check :
+    check_addr : http://10.0.24.42:8090/pic_check_bulk
+    file_type : [jpeg, png, jpg]
+    bulk_num : 128 
+
+
+#输出es地址 
+es :
+    host : http://10.0.24.60:9201
+    index : gbeat-dpi-filerevert
+    index_by_day : true
+    mapping_load : "/opt/dynamic_templates_string_to_keyword.json"
+
+
+
+如果kakfa，hbase， 图片监测系统，es等组件地址发生变化，则修改对应变量即可。
+
+
+
+
+
+
+***************************

@@ -1,0 +1,44 @@
+
+tlv :
+    msg_type : 16
+    proto_type : 103
+    tlv_config :
+        - ["XDR_ID",1,string]
+        - ["Procedure_Start_Time",2,string]
+        - ["HTTP_Version",6]
+        - ["Message_Type",7]
+        - ["Message_Status",8]
+        - ["First_HTTP_Response_Time",9]
+        - ["Last_Content_Packet_Time",10]
+        - ["Last_ACK_Time",11]
+        - ["HOST_Length",12]
+        - ["HOST",13]
+        - ["URI_Length",14]
+        - ["URI",15,string]
+        - ["HTTP_Request_type",16,string]
+        - ["X-Online-Host_Length",17]
+        - ["X-Online-Host",18,string]
+        - ["User-Agent_Length",19]
+        - ["User-Agent",20]
+        - ["HTTP_content_type",21]
+        - ["refer_URI_Length",22]
+        - ["refer_URI",23]
+        - ["Cookie_Length",24]
+        - ["Cookie",25,string]
+        - ["Content-Length",26]
+        - ["key_word",27]
+        - ["Service_Behavior_Flag",28]
+        - ["Service_Comp_Flag",29]
+        - ["Service_Time",30]
+        - ["IE",31]
+        - ["Portal",32]
+        - ["location_Length",33]
+        - ["location",34]
+        - ["first_request",35]
+        - ["User_account",36]
+        - ["URI_type",37]
+        - ["URI_sub-type",38]
+
+
+
+

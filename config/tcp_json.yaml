@@ -1,0 +1,20 @@
+
+input :
+    tcp:
+        addr : "0.0.0.0:8000"
+        auto_newlines : False
+        performance_mode : true
+
+filter :
+    json :
+        source : "Message"
+        #add_field :
+         #   id  : ID
+ 
+output:
+    elasticsearch : 
+        index : oa_test
+        host : [10.0.24.60:9201]
+        bulk : 10000
+
+

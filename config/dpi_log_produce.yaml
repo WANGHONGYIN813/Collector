@@ -1,0 +1,14 @@
+
+input :
+    tcp: 
+        addr : "0.0.0.0:9030"
+        performance_mode : true
+
+
+filter :
+ 
+output:
+    kafka:
+        host: ["10.0.24.42:9092"]
+        topic: dpi_log
+        max_message_bytes : 100000000

@@ -1,0 +1,15 @@
+
+input :
+    tcp: 
+        addr : "0.0.0.0:9022"
+
+
+filter :
+    json :
+        source : "Message"
+ 
+output:
+    kafka:
+        host: ["10.0.24.42:9092"]
+        topic: topic_mdr_takeaway
+        max_message_bytes : 100000000

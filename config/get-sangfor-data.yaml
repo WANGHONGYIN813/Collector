@@ -1,0 +1,17 @@
+
+input :
+    tcp :
+        addr : 0.0.0.0:9020
+        fields :
+            tag : sangfor-fw-report-AntiAPT
+
+ 
+filter :
+    json :
+        source : "Message"
+
+output:
+    elasticsearch : 
+        index : sangfor-apt
+        host : ["10.0.24.42:9200"]
+        bulk : 10000

@@ -1,0 +1,15 @@
+input : 
+    syslogfile :
+        dirpath : "/tmp/SyslogData"
+        filesuffix : ".sgn"
+
+filter :
+
+output :
+    elasticsearch :
+        index : db_nrtbe_syslog
+        host : [10.12.0.230:9201,10.12.0.230:9202,10.12.0.230:9203]
+        mapping_load : "/home/Wanghy/data_collecter/syslog_mapping.json"
+        index_by_day : true
+        bulk : 20000
+    

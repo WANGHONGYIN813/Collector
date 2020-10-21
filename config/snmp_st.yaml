@@ -1,0 +1,52 @@
+
+input :  
+    snmpwalk :
+        host : [10.0.24.42]
+        type : snmpwalk_data
+        interval : 60
+        oidnamelist :
+            - sysName
+            - sysDescr
+            - hrSystemUptime
+            - sysContact
+            - sysLocation
+
+            - ipAdEntAddr
+            - ipAdEntIfIndex
+            - ipAdEntNetMask
+
+            - ssCpuUser
+            - ssCpuSystem
+            - ssCpuIdle
+            - ssCpuRawUser
+            - ssCpuRawSystem
+            - ssCpuRawIdle
+            - hrProcessorLoad
+
+            - hrStorageIndex
+            - hrMemorySize
+            - hrStorageType
+            - hrStorageDescr
+            - hrStorageAllocationUnits
+            - hrStorageSize
+            - hrStorageUsed
+            # Total Size : (hrStorageSize * hrStorageAllocationUnits)
+            # hrStorageUsed percent : hrStorageUsed / hrStorageSize
+            
+            - memTotalReal
+            - memTotalFree
+            - memShared
+            - memBuffer
+            - memCached
+            #percent :  (memTotalReal - memTotalFree - memShared - memCached)  / memTotalReal
+
+filter :
+    map :
+        source : "Message"
+
+
+output:
+    #elasticsearch : 
+     #   index : gbeat_dev_stat
+      #  host : ["10.0.24.128:9200"]
+      #index_by_day : true

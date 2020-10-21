@@ -1,0 +1,60 @@
+input :  
+    snmpwalk :
+        host : [10.0.24.60]
+        type : snmpwalk_data
+        interval : 60
+        oidnamelist :
+            #- sysName
+            #- sysDescr
+            #- hrSystemUptime
+            #- sysContact
+            #- sysLocation
+
+            #- ipAdEntAddr
+            #- ipAdEntIfIndex
+            #- ipAdEntNetMask
+            
+
+            #- ssCpuUser
+            #- ssCpuSystem
+            - ssCpuIdle
+            #- ssCpuRawUser
+            #- ssCpuRawSystem
+            #- ssCpuRawIdle
+            #- hrProcessorLoad
+            #percent : 100 - ssCpuIdle
+            
+            #- IfInOctet
+            #- IfOutOctet
+            # TocalOctet : IfInOctet + IfOutOctet
+
+            #- hrStorageIndex
+            #- hrMemorySize
+            #- hrStorageType
+            #- hrStorageDescr
+            #- hrStorageAllocationUnits
+            - hrStorageSize
+            - hrStorageUsed
+            # Total Size : (hrStorageSize * hrStorageAllocationUnits)
+            # hrStorageUsed percent : hrStorageUsed / hrStorageSize
+            
+            - memTotalReal
+            - memTotalFree
+            - memShared
+            - memBuffer
+            - memCached
+            - memAvailSwap
+            #percent :  (memTotalReal - memTotalFree - memShared - memCached + memAvailSwap)  / memTotalReal
+
+filter :
+    map :
+        source : "Message"
+
+
+output:
+    elasticsearch : 
+        index_prefix : asset_message_
+        index_var : data_type
+        mapping_load : "./dynamic_templates_string_to_keyword.json"
+        host : [es1,es2,es3,es4,es5]
+        index_by_day : true

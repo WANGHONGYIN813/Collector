@@ -1,0 +1,120 @@
+
+
+
+
+启动 zookeeper：
+
+zookeeper-server-start /usr/local/etc/kafka/zookeeper.properties &
+
+
+
+启动kafka：
+
+kafka-server-start /usr/local/etc/kafka/server.properties &
+
+本路径下：
+
+kafka-server-start server.properties &
+
+
+创建topic: 单个分区和只有一个副本创建一个名为“test”的主题
+
+kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+
+
+创建 topic ， 扩大消息的最大字节数
+
+kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test --config max.message.bytes=204857600
+
+
+./kafka-topics.sh --create --zookeeper zk1:2181/kafka --replication-factor 2 --partitions 6 --topic  topic_dpi_filerevert
+
+查看： 运行list topic命令 查看创建的topic：
+
+
+kafka-topics --list --zookeeper localhost:2181
+
+
+kafka-topics.sh --list --zookeeper zk1:2181/kafka
+
+
+运行生产者，然后在控制台中键入一些消息发送到服务器。
+
+kafka-console-producer  --broker-list localhost:9092 --topic test 
+
+
+运行消费者，从最开始的offset 开始读取：
+
+kafka-console-consumer --bootstrap-server localhost:9092 --topic test --from-beginning
+
+
+运行消费者，从最近的offset 开始读取：
+
+kafka-console-consumer --bootstrap-server localhost:9092 --topic test
+
+
+
+
+
+
+删除topic：
+
+kafka-topics --delete --zookeeper localhost:2181 --topic test
+
+
+
+
+
+
+查看分区：
+
+ ./kafka-topics.sh --describe --zookeeper zk1:2181/kafka  --topic   topic_dpi_filerevert
+Topic:topic_dpi_filerevert	PartitionCount:6	ReplicationFactor:2	Configs:
+	Topic: topic_dpi_filerevert	Partition: 0	Leader: 2	Replicas: 2,1	Isr: 2,1
+	Topic: topic_dpi_filerevert	Partition: 1	Leader: 0	Replicas: 0,2	Isr: 0,2
+	Topic: topic_dpi_filerevert	Partition: 2	Leader: 1	Replicas: 1,0	Isr: 1,0
+	Topic: topic_dpi_filerevert	Partition: 3	Leader: 2	Replicas: 2,0	Isr: 2,0
+	Topic: topic_dpi_filerevert	Partition: 4	Leader: 0	Replicas: 0,1	Isr: 0,1
+	Topic: topic_dpi_filerevert	Partition: 5	Leader: 1	Replicas: 1,2	Isr: 1,2
+
+
+
+
+
+
+
+***********************
+
+kafka-topics.sh --create --zookeeper zk1:2181/kafka --replication-factor 2 --partitions 6 --topic topic_syslog_apt
+kafka-topics.sh --create --zookeeper zk1:2181/kafka --replication-factor 2 --partitions 6 --topic  topic_syslog_ips
+kafka-topics.sh --create --zookeeper zk1:2181/kafka --replication-factor 2 --partitions 6 --topic  topic_syslog_av
+
+
+kafka-topics.sh --create --zookeeper zk1:2181/kafka --replication-factor 2 --partitions 6 --topic  topic_mdr_email
+kafka-topics.sh --create --zookeeper zk1:2181/kafka --replication-factor 2 --partitions 6 --topic  topic_mdr_payment
+kafka-topics.sh --create --zookeeper zk1:2181/kafka --replication-factor 2 --partitions 6 --topic  topic_mdr_takeaway
+kafka-topics.sh --create --zookeeper zk1:2181/kafka --replication-factor 2 --partitions 6 --topic  topic_mdr_travel
+
+
+
+kafka-topics.sh --create --zookeeper zk1:2181/kafka --replication-factor 2 --partitions 6 --topic dpi_log_port
+kafka-topics.sh --create --zookeeper zk1:2181/kafka --replication-factor 2 --partitions 6 --topic  dpi_log_app
+kafka-topics.sh --create --zookeeper zk1:2181/kafka --replication-factor 2 --partitions 6 --topic  dpi_log_protocol
+kafka-topics.sh --create --zookeeper zk1:2181/kafka --replication-factor 2 --partitions 6 --topic  dpi_log_flow
+
+kafka-topics.sh --create --zookeeper zk1:2181/kafka --replication-factor 2 --partitions 6 --topic  topic_dpi_mdr_im
+
+
+
+
+
+
+
+*****************************
+
+
+
+
+
+
+pip install elasticsearch -i http://pypi.tuna.tsinghua.edu.cn/simple/ --trusted-host pypi.tuna.tsinghua.edu.cn

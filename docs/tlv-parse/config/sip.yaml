@@ -1,0 +1,14 @@
+
+tlv :
+    msg_type : 10
+    proto_type : 106
+    tlv_config :
+        - ["XDR_ID",1,s]
+        - ["Procedure_Start_Time",2,s]
+        - ["Direction",3]
+        - ["CallingNumber",4,s]
+        - ["CalledNumber",5,s]
+        - ["Type",6]
+        - ["Reason",7]
+        - ["Message_Type",8]
+        - ["Message_Status",9]

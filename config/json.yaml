@@ -1,0 +1,17 @@
+
+input :
+    kafka :
+        addr : ["0.0.0.0:9092"]
+        fields :
+            input_type : flow
+            tag : com_dpi_xdr
+
+filter :
+    json :
+        source : "Message"
+
+ 
+output:
+    stdout: true
+
+

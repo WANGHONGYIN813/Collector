@@ -1,0 +1,21 @@
+
+tlv :
+    msg_type : 10
+    proto_type : 101
+    tlv_config :
+        - ["XDR_ID",1,s]
+        - ["Procedure_Start_Time",2,s]
+        - ["Domain_Name",6,s]
+        - ["IP_Addr_Num",7]
+        - ["IP_Addr_Length",8]
+        - ["IP_Addr",9,s]
+        - ["RCode",10]
+        - ["DNSReq_Num",11]
+        - ["Ancount",12]
+        - ["Nscount",13]
+        - ["Arcount",14]
+        - ["Response_Time",15]
+        - ["CName_Length",16]
+        - ["CName",17,s]
+        - ["QUERY_TYPE",18]
+

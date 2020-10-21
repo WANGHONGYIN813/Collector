@@ -1,0 +1,18 @@
+input :
+    ftp :
+        addr: 0.0.0.0:21
+        user : admin
+        pass : 123456
+        active_port : 20
+
+
+filter : 
+
+
+output:
+    kafka:
+        host: ["0.0.0.0:9092"]
+        topic: "topic_dpi_filerevert"
+        max_message_bytes : 100000000
+
+

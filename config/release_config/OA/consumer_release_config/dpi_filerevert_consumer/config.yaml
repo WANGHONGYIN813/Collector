@@ -1,0 +1,28 @@
+
+kafka:
+    addr : ["10.0.24.42:9092"]
+    topic : dpi_filerevert
+    partition : 0-5
+
+
+buffer_dir : /dev/shm/buffer
+
+
+hbase :
+    host : http://10.0.24.60:19900
+    table : dpi_filerevert
+    column : context
+    batch : true
+
+pic_check :
+    check_addr : http://10.0.24.42:8090/pic_check_bulk
+    file_type : [jpeg, png, jpg]
+    bulk_num : 128
+
+
+es :
+    host : http://10.0.24.60:9201
+    index : gbeat-dpi-filerevert
+    index_by_day : true
+    mapping_load : "/opt/gen_dynamic_templates_string_to_keyword.json"
+    cron : "0 50 23 * * ?"

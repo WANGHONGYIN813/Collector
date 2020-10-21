@@ -1,0 +1,22 @@
+
+input :
+    tcp: 
+        addr : "0.0.0.0:9023"
+
+
+filter :
+    json :
+        source : "Message"
+
+ 
+output:
+    elasticsearch :
+        index : gbeat_dpi_mdr_travel
+        index_by_day : true
+        host : [10.0.24.125:9201,10.0.24.125:9202,10.0.24.125:9203]
+        bulk : 10000
+        mapping_load : "/opt/dynamic_templates_string_to_keyword.json"
+
+
+
+

@@ -1,0 +1,18 @@
+{
+    "TimeFormat":"2006-01-02 15:04:05",
+    "Console": {
+        "level": "DEBG",
+        "color": true
+    },
+    "File": {
+        "filename": "/tmp/gbeat-log/app.log",
+        "starttrunc": true,
+        "level": "EROR",
+        "daily": true,
+        "maxlines": 100000000,
+        "maxsize": 4096,
+        "maxdays": -1,
+        "append": true,
+        "permit": "0660"
+    }
+}

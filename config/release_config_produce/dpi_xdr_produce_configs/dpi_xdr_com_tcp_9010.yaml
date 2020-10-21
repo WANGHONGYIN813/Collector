@@ -1,0 +1,17 @@
+
+input :
+    tcp :
+        addr : 0.0.0.0:9010
+        performance_mode : true
+ 
+filter :
+
+output:  
+    kafka:
+        host: [10.0.24.42:9092]
+        topic: topic_dpi_xdr_com_appid_test 
+        max_message_bytes : 100000000
+            
+
+
+

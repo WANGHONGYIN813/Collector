@@ -1,0 +1,18 @@
+
+
+file_interval_default : 10
+snmpwalk_interval_default : 30
+
+es_bulk_default_num : 10000
+
+tcp_buffer_max : 40960
+
+ftp_default_port : 21
+ftp_active_default_port : 20
+
+
+mmdb_path : /opt/Geo_db/GeoLite2-City.mmdb
+
+web_port : 8001
+
+sys_cron : "0 50 23 * * ?"

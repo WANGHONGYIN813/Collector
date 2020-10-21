@@ -1,0 +1,21 @@
+input :
+    kafka : 
+        addr : ["10.0.24.42:9092"]
+        topic : topic_mdr_email_as
+        partition : 0-5
+
+filter :
+    json :  
+        source : "Message"
+
+        add_field :
+            '@timestamp' : beg_ts
+
+        remove_fields : [content, subject, up_bytes, up_pkts, req_uri, dn_bytes, dn_pkts, dst_ipv6, src_ipv6]
+ 
+output:
+    elasticsearch :
+        index: gbeat_dpi_mdr_email_as
+        index_by_day : true
+        host : [10.0.24.60:9201,10.0.24.60:9202,10.0.24.60:9203,10.0.24.60:9204,10.0.24.60:9205]
+        bulk : 10000 

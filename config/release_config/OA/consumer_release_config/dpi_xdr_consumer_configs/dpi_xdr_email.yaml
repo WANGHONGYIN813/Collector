@@ -1,0 +1,127 @@
+
+input :
+    kafka :                     
+        addr : ["10.0.24.42:9092"]
+        topic : topic_dpi_xdr_email
+        partition : 0-5   
+        type : dpi_xdr_email
+
+ 
+filter :
+    mutate :
+        split : Message,|
+
+        split_fields :
+            0 : Length
+            1 : LocalProvince
+            2 : LocalCity
+            3 : OwnerProvince
+            4 : OwnerCity
+            5 : RoamingType
+            6 : Interface
+            7 : XDRID
+            8 : AppTypeCode
+            9 : ProcedureStartTime
+            10 : ProcedureEndTime
+            11 : Longitude
+            12 : Latitude
+            13 : Height
+            14 : Coordinatesystem
+            15 : ProtocolType
+            16 : AppType
+            17 : AppSub-type
+            18 : AppContent
+            19 : AppStatus
+            20 : IPaddresstype
+            21 : USER_IPv4
+            22 : USER_IPv6
+            23 : UserPort
+            24 : L4protocal
+            25 : AppServerIP_IPv4
+            26 : AppServerIP_IPv6
+            27 : AppServerPort
+            28 : ULData
+            29 : DLData
+            30 : ULIPPacket
+            31 : DLIPPacket
+            32 : Updura
+            33 : Downdura
+            34 : ULDisorderIPPacket
+            35 : DLDisorderIPPacket
+            36 : ULRetransIPPacket
+            37 : DLRetransIPPacket
+            38 : TCPResponseTime
+            39 : TCPACKTime
+            40 : UL_IP_FRAG_PACKETS
+            41 : DL_IP_FRAG_PACKETS
+            42 : FirstReqTime
+            43 : FirstResponseTime
+            44 : Window
+            45 : MSS
+            46 : TCPSYNNum
+            47 : TCPStatus
+            48 : SessionEnd
+            49 : TCPSYNACKNum
+            50 : TCPACKNum
+            51 : TCP12HandshakeStatus
+            52 : TCP23HandshakeStatus
+            53 : ULProbeID
+            54 : ULLINKIndex
+            55 : DLProbeID
+            56 : DLLINKIndex
+            57 : TransactionID
+            58 : FlowControl
+            59 : UL_AVG_RTT
+            60 : DL_AVG_RTT
+            61 : UserAccount
+            62 : ReferXDRID
+            63 : Rule_source
+            64 : MessageType
+            65 : StatusType
+            66 : UserName
+            67 : SenderInfo
+            68 : EmailLength
+            69 : SMTPDomainName
+            70 : ReceiverAccount
+            71 : MailHeadInfo
+            72 : AccessType
+
+
+        convert : 
+            - [Length,              int]
+            - [Interface,           int]
+            - [ProcedureStartTime,  int]
+            - [ProcedureEndTime,    int]
+            - [ULData,              int]
+            - [DLData,              int]
+            - [ULIPPacket,          int]
+            - [DLIPPacket,          int]
+            - [ULDisorderIPPacket,  int]
+            - [DLDisorderIPPacket,  int]
+            - [ULRetransIPPacket,   int]
+            - [DLRetransIPPacket,   int]
+            - [TCPResponseTime,     int]
+            - [TCPACKTime,          int]
+            - [UL_IP_FRAG_PACKETS,  int]
+            - [DL_IP_FRAG_PACKETS,  int]
+            - [FirstReqTime,        int]
+            - [FirstResponseTime,   int]
+            - [Window,              int]
+            - [MSS,                 int]
+            - [TCPSYNNum,           int]
+            - [TCPSYNACKNum,        int]
+            - [TCPACKNum,           int]
+            - [UL_AVG_RTT,          int]
+            - [DL_AVG_RTT,          int]
+            - [EmailLength,         int]
+
+        geoip :
+            - [AppServerIP_IPv4, AppServerIP_Geo]
+            - [USER_IPv4, USER_Geo]
+
+output:
+    elasticsearch :
+        index : gbeat_dpi_xdr
+        host : [10.0.24.60:9201,10.0.24.60:9202,10.0.24.60:9203,10.0.24.60:9204,10.0.24.60:9205]
+        index_by_day : true
+        bulk : 20000

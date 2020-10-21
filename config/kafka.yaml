@@ -1,0 +1,22 @@
+
+input :
+    kafka :
+        addr : ["0.0.0.0:9092"]
+        topic : dpi_xdr
+        group : 0
+
+filter :
+    json :
+        source : "Message"
+
+ 
+output:
+    elasticsearch : 
+        index : aa
+        host : ["10.0.24.128:9200"]
+        bulk : 10000
+        sendmode : polling
+
+
+
+

@@ -1,0 +1,26 @@
+
+
+file_interval_default : 10
+snmpwalk_interval_default : 30
+
+es_bulk_default_num : 10000
+
+tcp_buffer_max : 30000000
+
+ftp_default_port : 21
+ftp_active_default_port : 20
+
+
+mmdb_path : /opt/Geo_db/GeoLite2-City.mmdb
+
+web_port : 8001
+
+sys_cron : "0 50 23 * * ?"
+
+mysql_config :
+    username : root
+    password : "sugon123"
+    network : tcp
+    server : "10.0.24.59"
+    port : 10507
+    database : "nsa"

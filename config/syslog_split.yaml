@@ -1,0 +1,16 @@
+
+input :
+    syslog:
+        addr : "0.0.0.0:514"
+
+
+filter :
+    mutatemap :
+        split : Message, " "
+        split_map : split_items, "="
+        remove_fields : [Message]
+
+ 
+output:
+
+

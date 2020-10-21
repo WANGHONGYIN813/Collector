@@ -1,0 +1,34 @@
+#!/bin/bash
+# THIS FILE IS ADDED FOR COMPATIBILITY PURPOSES
+#
+# It is highly advisable to create own systemd services or udev rules
+# to run scripts during boot instead of using this file.
+#
+# In contrast to previous versions due to parallel execution during boot
+# this script will NOT be run after all other services.
+#
+# Please note that you must run 'chmod +x /etc/rc.d/rc.local' to ensure
+# that this script will be executed during boot.
+
+touch /var/lock/subsys/local
+
+
+/opt/dpi_filerevert_consumer/dpi_filerevert_consumer -p 5 -f /opt/dpi_filerevert_consumer/config.yaml 2> /root/dpi_frs.log  &
+
+#/opt/dpi_xdr_config/dpi_xdr_consumer_v7 -f /opt/release_config/dpi_xdr_consumer_configs_with_appid_use/  &
+
+/opt/dpi_xdr_config/dpi_xdr_consumer_v7 -f /opt/release_config/dpi_xdr_appid_consumer_configs_in_use_v1_3/ -w 8008 &
+
+/opt/dpi_xdr_config/dpi_xdr_consumer_v71  -f /opt/release_config/dpi_mdr_associated_config/ -w 8040  &
+
+/opt/dpi_xdr_config/dpi_xdr_consumer_v7  -f /opt/release_config/dpi_mdr_consumer_configs/ -w 8004  &
+
+#/opt/dpi_xdr_config/dpi_xdr_consumer_v7 -f /opt/release_config/dpi_log_consumer_configs/ -w 8005  &
+
+/opt/dpi_xdr_config/dpi_xdr_consumer_v7  -f /opt/release_config/syslog_consumer/ -w 8003 &
+
+/opt/dpi_xdr_config/dpi_xdr_consumer_v7   -f /opt/release_config/dpi_mdr_im_consumer_configs/dpi_mdr_im_consumer_qq.yaml -w 8006  &
+
+
+
+#/opt/dpi_xdr_config/dpi_xdr_consumer_v7   -f /opt/release_config/dpi_mdr_im_consumer_configs/dpi_mdr_im_consumer_wechat.yaml -w 8007  &

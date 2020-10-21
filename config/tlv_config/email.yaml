@@ -1,0 +1,20 @@
+
+tlv :
+    msg_type : 10
+    proto_type : 105
+    tlv_config :
+        - ["XDR_ID",1,s]
+        - ["Procedure_Start_Time",2,s]
+        - ["Message_Type",3]
+        - ["Status_Type",4]
+        - ["User_Name",5,s]
+        - ["Sender_Info",6,s]
+        - ["Email_Length",7]
+        - ["SMTP_Domain_Name",8,s]
+        - ["Email_Sender",9,s]
+        - ["Email_Receiver",10,s]
+        - ["Email_CCer",11,s]
+        - ["Email_Theme",12,s]
+        - ["Receiver_Account",13,s]
+        - ["Mail_Head_Info",14,s]
+        - ["Access_Type",15]

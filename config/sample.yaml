@@ -1,0 +1,34 @@
+
+input :
+    tcp :
+        addr : 0.0.0.0:9010
+        fields :
+            input_type : log
+            tag : com_dpi_xdr
+
+ 
+filter :
+    mutate :
+        split : Message,|
+
+        split_fields :
+            0 : Length
+            1 : LocalProvince
+
+        remove_fields : [Message]
+
+output:
+    stdout : true
+
+    tcp: 
+        host : ["0.0.0.0:9011"]
+
+    elasticsearch : 
+        index : aa
+        host : ["10.0.24.128:9200"]
+        bulk : 10000
+        #sendmode : polling/copy/random
+        #sendmode : copy
+        #sendmode : random
+        #sendmode : polling
+

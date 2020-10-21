@@ -1,0 +1,22 @@
+input :
+    syslog:
+        addr : "0.0.0.0:8041"
+
+
+filter :
+    mutatemap :
+        split : Message, " "
+        split_map : split_items, "="
+        remove_fields : [Message]
+
+        geoip : 
+            - [SrcIP, SrcIP_Geo]
+            - [DstIP, DstIP_Geo]
+ 
+ 
+output:
+    elasticsearch :
+        index : ips_message
+        host : [es1,es2,es3,es4,es5]
+        bulk : 10000
+        mapping_load : "./dynamic_templates_string_to_keyword.json"

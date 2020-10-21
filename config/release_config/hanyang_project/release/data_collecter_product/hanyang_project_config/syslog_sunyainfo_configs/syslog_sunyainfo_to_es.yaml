@@ -1,0 +1,28 @@
+input :
+    syslog:
+        addr : "0.0.0.0:524"
+        fields :
+            tag : syslog
+
+
+filter :
+    mutatemap :
+        split : Message, " "
+        split_map : split_items, "="
+        remove_fields : [Message]
+
+        geoip : 
+            - [SrcIP, SrcIP_Geo]
+            - [DstIP, DstIP_Geo]
+ 
+ 
+output:
+    elasticsearch :
+        index_prefix : gbeat_sunyainfo_
+        index_var : Program
+        index_by_day : true
+        host : [10.0.24.125:9201,10.0.24.125:9202,10.0.24.125:9203]
+        bulk : 10000
+        
+        
+

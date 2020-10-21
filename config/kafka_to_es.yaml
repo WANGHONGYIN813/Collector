@@ -1,0 +1,24 @@
+
+input :
+    kafka :
+        addr : ["10.0.24.42:9092"]
+        topic : topic_test
+        partition : 0-5
+
+filter :
+    json :
+        source : "Message"
+        geoip : 
+            - [AppServerIP_IPv4, AppServerIP_Geo]
+            - [USER_IPv4, USER_Geo]
+
+ 
+output:
+    elasticsearch : 
+        index : aa
+        host : ["10.0.24.128:9200"]
+        bulk : 10000
+
+
+
+

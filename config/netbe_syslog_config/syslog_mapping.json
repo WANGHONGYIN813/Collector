@@ -1,0 +1,76 @@
+{
+	"settings": {
+        "number_of_shards": "20",
+        "number_of_replicas": 0,
+        "index" : {
+            "refresh_interval" : "60s",
+            "translog": {
+                "durability": "async",
+                "sync_interval": "30s",
+                "flush_threshold_size": "4g"
+            }
+        }
+    },
+	"mappings":{
+		"doc":{
+			"properties":{
+				"@timestamp":{
+					"type":"date"
+				},
+				"type":{
+					"type":"integer"
+				},
+				"time":{
+					"type":"long"
+				},
+				"srcip":{
+				    "ignore_malformed":true,
+                    "type":"ip"
+				},
+				"srcmac":{
+					"type":"keyword"
+				},
+				"srcport":{
+					"type":"integer"
+				},	
+				"destip":{
+					"ignore_malformed":true,
+                    "type":"ip"
+				},
+				"destmac":{
+					"type":"keyword"
+				},
+				"destport":{
+					"type":"integer"
+				},
+				"username":{
+					"type":"keyword"
+				},
+				"account":{
+					"type":"keyword"
+				},
+				"virtualacct":{
+					"type":"keyword"
+				},
+				"protocol":{
+					 "type":"long"
+				},
+				"subject":{
+					"type":"keyword"
+				},
+				"message":{
+					 "ignore_above":1024,
+					 "norms":false,
+                     "type":"keyword"
+				},
+				"type_name":{
+					"type":"keyword"
+				},
+				"protocol_name":{
+					"type":"keyword"
+				}
+				
+			}
+		}
+	}
+}

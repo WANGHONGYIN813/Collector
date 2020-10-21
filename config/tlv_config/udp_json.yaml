@@ -1,0 +1,453 @@
+
+input :
+    udp:
+        addr : "0.0.0.0:8000"
+
+filter :
+    united_tlv :
+        - tlv :
+            doc_type : BEAR_PROTO_LOG_HTTP
+            log_type : 16
+            proto_type : 103
+            tlv_config :
+                - ["XDR_ID",1,s]
+                - ["Procedure_Start_Time",2,s]
+                - ["HTTP_Version",6]
+                - ["Message_Type",7]
+                - ["Message_Status",8]
+                - ["First_HTTP_Response_Time",9]
+                - ["Last_Content_Packet_Time",10]
+                - ["Last_ACK_Time",11]
+                - ["HOST_Length",12]
+                - ["HOST",13,s]
+                - ["URI_Length",14]
+                - ["URI",15,s]
+                - ["HTTP_Request_type",16,s]
+                - ["X-Online-Host_Length",17]
+                - ["X-Online-Host",18,s]
+                - ["User-Agent_Length",19]
+                - ["User-Agent",20]
+                - ["HTTP_content_type",21]
+                - ["refer_URI_Length",22]
+                - ["refer_URI",23]
+                - ["Cookie_Length",24]
+                - ["Cookie",25,s]
+                - ["Content-Length",26]
+                - ["key_word",27]
+                - ["Service_Behavior_Flag",28]
+                - ["Service_Comp_Flag",29]
+                - ["Service_Time",30]
+                - ["IE",31]
+                - ["Portal",32]
+                - ["location_Length",33]
+                - ["location",34]
+                - ["first_request",35]
+                - ["User_account",36]
+                - ["URI_type",37]
+                - ["URI_sub-type",38]
+
+        - tlv :
+            doc_type : BEAR_PROTO_LOG_DNS
+            log_type : 16
+            proto_type : 101
+            tlv_config :
+                - ["XDR_ID",1,s]
+                - ["Procedure_Start_Time",2,s]
+                - ["Domain_Name",6,s]
+                - ["IP_Addr_Num",7]
+                - ["IP_Addr_Length",8]
+                - ["IP_Addr",9,s]
+                - ["RCode",10]
+                - ["DNSReq_Num",11]
+                - ["Ancount",12]
+                - ["Nscount",13]
+                - ["Arcount",14]
+                - ["Response_Time",15]
+                - ["CName_Length",16]
+                - ["CName",17,s]
+                - ["QUERY_TYPE",18]  
+
+        - tlv :
+            doc_type : BEAR_PROTO_LOG_FTP
+            msg_type : 10
+            proto_type : 104 
+            tlv_config :
+                - ["XDR_ID",1,s]
+                - ["Procedure_Start_Time",2,s]
+                - ["FTPStatus",6]
+                - ["User_Name",7]
+                - ["File_Path",8]
+                - ["Trans_Mode",9]
+                - ["Trans_Type",10]
+                - ["File_Name",11]
+                - ["Client_Port",12]
+                - ["Server_Port",13]
+                - ["File_Size",14]
+                - ["Response_Time",15]
+                - ["Trans_Time",16]
+                - ["Request_Command",17]
+                - ["Request_Param",18]
+                - ["Response_Code",19]
+                - ["Response_Param",20]
+
+
+        - tlv :
+            doc_type : BEAR_PROTO_LOG_SIP
+            msg_type : 10
+            proto_type : 106 
+            tlv_config :
+                - ["XDR_ID",1,s]
+                - ["Procedure_Start_Time",2,s]
+                - ["Direction",3]
+                - ["CallingNumber",4,s]
+                - ["CalledNumber",5,s]
+                - ["Type",6]
+                - ["Reason",7]
+                - ["Message_Type",8]
+                - ["Message_Status",9]
+
+
+
+        - tlv :
+            doc_type : BEAR_PROTO_LOG_SIP
+            msg_type : 10
+            proto_type : 107 
+            tlv_config :
+                - ["XDR_ID",1,s]
+                - ["Procedure_Start_Time",2,s]
+                - ["URL",3,s]
+                - ["RTSP-User-Agent",4,s]
+                - ["RTP-Server-IP",5,s]
+                - ["Client-Starting-Port",6]
+                - ["Client-Ending-Port",7]
+                - ["Server-Starting-Port",8]
+                - ["Server-Ending-Port",9]
+                - ["Video-Flow-Number",10]
+                - ["Audio-Flow-Number",11]
+                - ["Response-Delay",12]
+
+        - tlv :
+            doc_type : BEAR_PROTO_LOG_RADIUS
+            msg_type : 10
+            proto_type : 108 
+            tlv_config :
+                - ["XDR_ID",1,s]
+                - ["Procedure_Start_Time",2,s]
+                - ["startTime",3,s]
+                - ["updateTime",4,s]
+                - ["endTime",5,s]
+                - ["Account",6,s]
+                - ["userIP",7,s]
+                - ["BASIP",8,s]
+                - ["Physical_port",9,s]
+                - ["Logical_port",10,s]
+                - ["InBytes",11]
+                - ["OutBytes",12]
+                - ["NAT_IP",13,s]
+                - ["NAT_port_start",14]
+                - ["NAT_port_end",15]
+                - ["NAS_Identifier",16,s]
+
+        - tlv :
+            doc_type : BEAR_PROTO_LOG_HTTPS
+            msg_type : 10
+            proto_type : 113 
+            tlv_config :
+                - ["XDR_ID",1,s]
+                - ["Procedure_Start_Time",2,s]
+                - ["First_HTTPS_Response_Time",6]
+                - ["First_Application_data_time",7]
+                - ["Last_Content_Packet_Time",8]
+                - ["Last_ACK_Time",9]
+                - ["SNI_Length",10]
+                - ["SNI",11,s]
+                - ["CN_Length",12]
+                - ["CN",13,s]
+                - [,"HTTPS_CERTIFI_HOST_NAME",14,s]
+                - [,"HTTPS_ENCODE_TYPE",15,s]
+                - [,"HTTPS_CERTIFI_USER",16,s]
+                - [,"HTTPS_CERTIFI_AWARD_SERVER",17,s]
+                - [,"HTTPS_CERTIFI_AWARD_ORG",18,s]
+                - [,"HTTPS_CERTIFI_START_TIME",19,s]
+                - [,"HTTPS_CERTIFI_END_TIME",20,s]
+                - [,"HTTPS_STANDBY_HOST",21,s]
+
+
+        - tlv :
+            doc_type : BASIC_FLOW_LOG
+            log_type : 0
+            proto_type : 0
+            tlv_config :
+            #DS_HEADER_FIELD
+                - ["XDR_ID",1,s]
+                - ["Procedure_Start_Time",2,s]
+                - ["Flow_Continue_Time",3, s]
+                - ["Procedure_End_Time",4,s]
+                - ["Flow_end_reason",5,s]
+
+                #common part
+                - ["USER_IPv4",100,s]
+                - ["USER_IPv6",101,s]
+                - ["User_Port",104,s]
+                - ["L4_protocal",106]
+                - ["App_Server_IP_IPv4",102,s]
+                - ["App_Server_IP_IPv6",103,s]
+                - ["App_Server_Port",105,s]
+
+                #DS_BASIC_CONFLICT_FIELD
+                - ["ACCESS_access_type",250,s]
+                - ["ACCESS_access_attribute",251,s]
+                - ["ACCESS_country",252,s]
+                - ["ACCESS_province",253,s]
+                - ["ACCESS_city",254,s]
+                - ["ACCESS_county",255,s]
+                - ["ACCESS_town",256,s]
+                - ["ACCESS_street",257,s]
+                - ["ACCESS_s_GPS_longitude",258,s]
+                - ["ACCESS_c_GPS_longitude",259,s]
+                - ["ACCESS_s_GPS_latitude",260,s]
+                - ["ACCESS_c_GPS_latitude",261,s]
+                - ["ACCESS_s_GPS_height",262,s]
+                - ["ACCESS_c_GPS_height",263,s]
+                - ["ACCESS_coordinate",264,s]
+
+                - ["STAT_unknowe_flag",300,s]
+                - ["UL_IP_Packet",301,l]
+                - ["UL_Data",302,l]
+                - ["DL_IP_Packet",303,l]
+                - ["DL_Data",304,l]
+
+                - ["STAT_up_bps",305]
+                - ["STAT_dn_bps",306]
+                - ["STAT_up_pps",307]
+                - ["STAT_dn_pps",308]
+
+                - ["RELATION_hit_rul_log_id",390]
+                - ["RELATION_bear_proto_log_id",391]
+                - ["RELATION_app_proto_log_id",392]
+
+                #DS_X10_FIELD
+                - ["Link_operator_name",30, s]
+                - ["Link_net_short_name",31,s]
+                - ["Link_collect_place",32, s]
+                - ["Link_dev_nu",33,s]
+                - ["Link_equ_type",34,s]
+                - ["Link_equ_slot",35,s]
+                - ["Link_link_type",36]
+                - ["Link_inface_speed_type",37,s]
+                - ["Link_input_type",38]
+                - ["Link_link_no",39]
+                - ["Link_link_direc",40]
+
+                - ["ETH_src_mac",60,s]
+                - ["ETH_dst_mac",61,s]
+                - ["ETH_out_vlan",62]
+                - ["ETH_inner_vlan",63]
+
+                - ["IP_ip_ver",80,s]
+                - ["IP_ip_dscp",81]
+                - ["IP_ip_len",82]
+                - ["IP_frag_id",83]
+                - ["IP_more_frag_flag",84]
+                - ["IP_enable_frag",85]
+                - ["IP_first_offset",86]
+                - ["IP_ip_ttl",87]
+                - ["IP_ipv6_ext",88]
+
+                - ["tunnel_num_1",130]
+                - ["tunnel_type_1",131]
+                - ["tunnel_ip_type_1",132]
+                - ["tunnel_sip_1",133]
+                - ["tunnel_src128_1",134]
+                - ["tunnel_head_info_1",135]
+                - ["tunnel_dest_1",136]
+                - ["tunnel_dst128_1",137]
+                - ["tunnel_sport_1",138]
+                - ["tunnel_dport_1",139]
+                - ["tunnel_L4_ptoto_1",140]
+
+                - ["tunnel_num_2",160]
+                - ["tunnel_type_2",161]
+                - ["tunnel_ip_type_2",162]
+                - ["tunnel_sip_2",163]
+                - ["tunnel_src128_2",164]
+                - ["tunnel_head_info_2",165]
+                - ["tunnel_dest_2",166]
+                - ["tunnel_dst128_2",167]
+                - ["tunnel_sport_2",168]
+                - ["tunnel_dport_2",169]
+                - ["tunnel_L4_ptoto_2",170]
+                - ["HASH_FLOW_ipv4_hash",180]
+                - ["HASH_FLOW_ipv6_hash",181]
+                - ["HASH_FLOW_acl_rul_id",182]
+                - ["HASH_FLOW_out_port_group_id",183]
+                - ["HASH_FLOW_buss_id",184,s]
+
+                - ["TCP_seq",200]
+                - ["TCP_next_seq",201]
+                - ["TCP_tcp_head_len",202]
+                - ["TCP_tcp_res_flag",203]
+                - ["TCP_tcp_ctl_flag",204]
+                - ["Window",205]
+                - ["TCP_tcp_check_sum",206]
+                - ["TCP_urg_flag",207]
+
+                - ["UL_Disorder_IP_Packet",208]
+                - ["DL_Disorder_IP_Packet",209]
+                - ["UL_Retrans_IP_Packet",210]
+                - ["DL_Retrans_IP_Packet",211]
+                - ["TCP_Response_Time",212,s]
+
+
+        - tlv :
+            doc_type : HIT_RUL_LOG
+            log_type : 1
+            proto_type : 0
+            tlv_config :
+            #DS_HEADER_FIELD
+                - ["XDR_ID",1,s]
+                - ["Procedure_Start_Time",2,s]
+                - ["Flow_Continue_Time",3, s]
+                - ["Procedure_End_Time",4,s]
+                - ["Flow_end_reason",5,s]
+
+                #common part
+                - ["USER_IPv4",100,s]
+                - ["USER_IPv6",101,s]
+                - ["User_Port",104,s]
+                - ["L4_protocal",106]
+                - ["App_Server_IP_IPv4",102,s]
+                - ["App_Server_IP_IPv6",103,s]
+                - ["App_Server_Port",105,s]
+
+                #DS_HIT_CONFLICT_FIELD
+                - ["HIT_buss_id",250,s]
+                - ["HIT_rul_type",251,s]
+                - ["HIT_rul_group_id",252]
+                - ["HIT_pcap_index",253,s]
+                - ["HIT_direct",254]
+                - ["HIT_hit_num",255,s]
+                - ["HIT_out_port_group_id",256]
+                - ["HIT_HOST",300,s]
+                - ["HIT_URI",301,s]
+                - ["HIT_User-Agent",302,s]
+                - ["HIT_HTTP_Request_type",303,s]
+                - ["HIT_SNI",350,s]
+                - ["HIT_dns_Domain_Name",380,s]
+                - ["HIT_dns_QUERY_TYPE",381]
+                - ["HIT_dns_IP_Addr",382,s]
+                - ["HIT_dns_match_method",383,s]
+                - ["HIT_Email_Sender",400,s]
+                - ["HIT_Email_Receiver",401,s]
+                - ["HIT_Email_CCer",402,s]
+                - ["HIT_Email_Theme",403,s]
+         
+                #DS_X10_FIELD
+                - ["Link_operator_name",30, s]
+                - ["Link_net_short_name",31,s]
+                - ["Link_collect_place",32, s]
+                - ["Link_dev_nu",33,s]
+                - ["Link_equ_type",34,s]
+                - ["Link_equ_slot",35,s]
+                - ["Link_link_type",36]
+                - ["Link_inface_speed_type",37,s]
+                - ["Link_input_type",38]
+                - ["Link_link_no",39]
+                - ["Link_link_direc",40]
+
+                - ["ETH_src_mac",60,s]
+                - ["ETH_dst_mac",61,s]
+                - ["ETH_out_vlan",62]
+                - ["ETH_inner_vlan",63]
+
+                - ["IP_ip_ver",80,s]
+                - ["IP_ip_dscp",81]
+                - ["IP_ip_len",82]
+                - ["IP_frag_id",83]
+                - ["IP_more_frag_flag",84]
+                - ["IP_enable_frag",85]
+                - ["IP_first_offset",86]
+                - ["IP_ip_ttl",87]
+                - ["IP_ipv6_ext",88]
+
+                - ["tunnel_num_1",130]
+                - ["tunnel_type_1",131]
+                - ["tunnel_ip_type_1",132]
+                - ["tunnel_sip_1",133]
+                - ["tunnel_src128_1",134]
+                - ["tunnel_head_info_1",135]
+                - ["tunnel_dest_1",136]
+                - ["tunnel_dst128_1",137]
+                - ["tunnel_sport_1",138]
+                - ["tunnel_dport_1",139]
+                - ["tunnel_L4_ptoto_1",140]
+
+                - ["tunnel_num_2",160]
+                - ["tunnel_type_2",161]
+                - ["tunnel_ip_type_2",162]
+                - ["tunnel_sip_2",163]
+                - ["tunnel_src128_2",164]
+                - ["tunnel_head_info_2",165]
+                - ["tunnel_dest_2",166]
+                - ["tunnel_dst128_2",167]
+                - ["tunnel_sport_2",168]
+                - ["tunnel_dport_2",169]
+                - ["tunnel_L4_ptoto_2",170]
+                - ["HASH_FLOW_ipv4_hash",180]
+                - ["HASH_FLOW_ipv6_hash",181]
+                - ["HASH_FLOW_acl_rul_id",182]
+                - ["HASH_FLOW_out_port_group_id",183]
+                - ["HASH_FLOW_buss_id",184,s]
+
+                - ["TCP_seq",200]
+                - ["TCP_next_seq",201]
+                - ["TCP_tcp_head_len",202]
+                - ["TCP_tcp_res_flag",203]
+                - ["TCP_tcp_ctl_flag",204]
+                - ["Window",205]
+                - ["TCP_tcp_check_sum",206]
+                - ["TCP_urg_flag",207]
+
+                - ["UL_Disorder_IP_Packet",208]
+                - ["DL_Disorder_IP_Packet",209]
+                - ["UL_Retrans_IP_Packet",210]
+                - ["DL_Retrans_IP_Packet",211]
+                - ["TCP_Response_Time",212,s]
+
+
+        - tlv :
+            doc_type : APP_PROTO_LOG
+            log_type : 17
+            proto_type : 0
+            tlv_config :
+                #DS_HEADER_FIELD
+                - ["XDR_ID",1,s]
+                - ["Procedure_Start_Time",2,s]
+                - ["Flow_Continue_Time",3, s]
+                - ["Procedure_End_Time",4,s]
+                - ["Flow_end_reason",5,s]
+
+                #DS_PROTO_CONFLICT_FIELD
+                - ["IDFY_app_type_name",50,s]
+                - ["IDFY_app_type_code",51]
+                - ["IDFY_APP_name",52,s]
+                - ["IDFY_APP_code",53,s]
+                - ["IDFY_app_proto_ID",54,s]
+                - ["IDFY_app_uni_proro_code",55,s]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+output:
+
+

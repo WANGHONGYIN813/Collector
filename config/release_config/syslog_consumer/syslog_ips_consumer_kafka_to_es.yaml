@@ -1,0 +1,17 @@
+
+input :
+    kafka :
+        addr : ["10.0.24.42:9092"]
+        topic : topic_syslog_ips
+        partition : 0-5
+
+filter :
+    json :
+        source : "Message"
+
+
+output:
+    elasticsearch :
+        index : gbeat_sunyainfo_ips
+        host : [10.0.24.42]
+        bulk : 10000

@@ -1,0 +1,28 @@
+{
+	"settings": {
+		"number_of_shards": "10",
+		"number_of_replicas": 0,
+		"index" : {
+			"refresh_interval" : "10s",
+			"translog": {
+				"durability": "async",
+				"sync_interval": "30s",
+				"flush_threshold_size": "4g"
+			}
+		}
+	},
+	"mappings": {
+		"doc": {
+			"dynamic_templates": [{
+				"strings": {
+					"match_mapping_type": "string",
+					"mapping": {
+						"type": "keyword",
+						"norms": false,
+						"ignore_above": 64
+					}
+				}
+			}]
+		}
+	}
+}

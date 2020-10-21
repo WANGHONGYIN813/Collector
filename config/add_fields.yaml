@@ -1,0 +1,15 @@
+
+input :
+    tcp:
+        addr : "0.0.0.0:8000"
+        performance_mode : true
+
+filter :
+    json :
+        source : "Message"
+        add_field :
+            '@timestamp' : ProcedureStartTime
+ 
+output:
+
+
